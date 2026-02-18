@@ -20,10 +20,27 @@
                 The Ambe Group focuses on the future of Human-AI symbiosis.
                 We conduct research on Machine Learning, Human-Computer Interaction, and their applications.
             </p>
-            <div
-                style="background-color: #eee; height: 300px; display: flex; align-items: center; justify-content: center; margin: 20px 0;">
-                <p style="color: #666;">Main Visual / Research Highlight</p>
+            <div class="research-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                <a href="../research/ambe/en/index.html" class="research-card" style="background: linear-gradient(135deg, #eaf7ee 0%, #c3e8d1 100%); height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; border-radius: 12px; border: 2px solid #cfe9d8; transition: transform 0.3s, box-shadow 0.3s;">
+                    <h3 style="color: #003366; font-size: 1.8rem; margin: 0;">Ambe Group</h3>
+                    <p style="color: #555; margin-top: 10px;">Human-AI Symbiosis</p>
+                </a>
+                <a href="../research/takaki/en/index.html" class="research-card" style="background: linear-gradient(135deg, #e6f0ff 0%, #c3d9ff 100%); height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; border-radius: 12px; border: 2px solid #cfe0ff; transition: transform 0.3s, box-shadow 0.3s;">
+                    <h3 style="color: #003366; font-size: 1.8rem; margin: 0;">Takaki Group</h3>
+                    <p style="color: #555; margin-top: 10px;">Mechatronics Systems</p>
+                </a>
             </div>
+            <style>
+                .research-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+                }
+                @media (max-width: 768px) {
+                    .research-grid {
+                        grid-template-columns: 1fr !important;
+                    }
+                }
+            </style>
         </section>
 
         <section id="news">
