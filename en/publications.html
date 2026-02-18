@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications - Mechatronics Laboratory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Publications page enhancements (local friendly) */
+        .pub-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 0 20px;
+            padding: 10px;
+            background: #fafafa;
+            border: 1px solid #e6e6e6;
+            border-radius: 8px;
+        }
+
+        .pub-controls .left {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .seg {
+            display: inline-flex;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .seg button {
+            border: 0;
+            background: #fff;
+            padding: 8px 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .seg button.active {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        .pub-search {
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            min-width: 220px;
+        }
+
+        .pub-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .pub-item:last-child {
+            border-bottom: 0;
+        }
+
+        .pub-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .pub-links a {
+            text-decoration: none;
+            border: 1px solid #ddd;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+        }
+
+        .pub-links a:hover {
+            text-decoration: underline;
+        }
+
+        .pub-btn {
+            border: 1px solid #ddd;
+            background: #fff;
+            padding: 2px 8px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .pub-btn:hover {
+            background: #f3f3f3;
+        }
+
+        /* Simple modal */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 999;
+        }
+
+        .modal {
+            background: #fff;
+            width: min(900px, 100%);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 14px;
+            border-bottom: 1px solid #eee;
+            background: #fafafa;
+        }
+
+        .modal-title {
+            font-weight: 700;
+        }
+
+        .modal-body {
+            padding: 12px 14px;
+        }
+
+        .modal pre {
+            margin: 0;
+            padding: 12px;
+            background: #0b1020;
+            color: #e9eefb;
+            border-radius: 10px;
+            overflow: auto;
+            max-height: 60vh;
+            font-size: 0.9rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            padding: 12px 14px;
+            border-top: 1px solid #eee;
+            background: #fafafa;
+        }
+
+        .toast {
+            position: fixed;
+            right: 16px;
+            bottom: 16px;
+            background: #111;
+            color: #fff;
+            padding: 10px 12px;
+            border-radius: 10px;
+            display: none;
+            z-index: 1000;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="site-header"></div>
+    <script src="../js/header-en.js"></script>
+
+    <main class="container">
+        <h2>Publications</h2>
+
+        <div class="pub-controls">
+            <div class="left">
+                <div class="seg" role="tablist" aria-label="View">
+                    <button id="btn-view-year" class="active" type="button">By Year</button>
+                    <button id="btn-view-cat" type="button">By Category</button>
+                </div>
+                <input id="pub-search" class="pub-search" type="search" placeholder="Search (authors, title, venue...)" aria-label="Search publications">
+            </div>
+            <div style="font-size:0.9rem; color:#666;">
+                PDF / DOI / BibTeX available per entry
+            </div>
+        </div>
+
+        <div id="pubs-container">
+            <p>Loading publications...</p>
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="../js/footer-en.js"></script>
+
+    <!-- BibTeX modal -->
+    <div class="modal-backdrop" id="bibtex-backdrop" role="dialog" aria-modal="true" aria-labelledby="bibtex-title">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title" id="bibtex-title">BibTeX</div>
+                <button class="pub-btn" id="bibtex-close" type="button">Close</button>
+            </div>
+            <div class="modal-body">
+                <pre id="bibtex-content"></pre>
+            </div>
+            <div class="modal-actions">
+                <button class="pub-btn" id="bibtex-copy" type="button">Copy</button>
+            </div>
+        </div>
+    </div>
+    <div class="toast" id="toast">Copied!</div>
+
+    <script src="../data/publications.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('pubs-container');
+            const btnYear = document.getElementById('btn-view-year');
+            const btnCat = document.getElementById('btn-view-cat');
+            const search = document.getElementById('pub-search');
+
+            // Data categories are in Japanese; map to English display labels.
+            const catOrderJP = [
+                "学術論文",
+                "国際会議論文（査読付き）",
+                "国際会議発表",
+                "国内会議発表",
+                "招待講演",
+                "解説記事",
+                "受賞",
+                "その他"
+            ];
+
+            const catLabelEN = {
+                "学術論文": "Journal Papers",
+                "国際会議論文（査読付き）": "International Conference Papers (Peer-reviewed)",
+                "国際会議発表": "International Conference Presentations",
+                "国内会議発表": "Domestic Conference Presentations",
+                "招待講演": "Invited Talks",
+                "解説記事": "Tutorial / Survey Articles",
+                "受賞": "Awards",
+                "その他": "Others"
+            };
+
+            const state = {
+                view: 'year',
+                query: ''
+            };
+
+            const bibBackdrop = document.getElementById('bibtex-backdrop');
+            const bibContent = document.getElementById('bibtex-content');
+            const bibClose = document.getElementById('bibtex-close');
+            const bibCopy = document.getElementById('bibtex-copy');
+            const toast = document.getElementById('toast');
+
+            function showToast(text) {
+                toast.textContent = text;
+                toast.style.display = 'block';
+                clearTimeout(showToast._t);
+                showToast._t = setTimeout(() => toast.style.display = 'none', 1400);
+            }
+
+            function resolvePDF(path) {
+                if (!path) return null;
+                if (/^https?:\/\//.test(path)) return path;
+                // en/ page -> one level up
+                return '../' + path.replace(/^\.\//, '');
+            }
+
+            function resolveDOI(doi) {
+                if (!doi) return null;
+                if (/^https?:\/\//.test(doi)) return doi;
+                return 'https://doi.org/' + doi;
+            }
+
+            function normalizeText(s) {
+                return (s || '').toLowerCase();
+            }
+
+            function filteredData() {
+                if (typeof publicationsData === 'undefined') return [];
+                const q = normalizeText(state.query);
+                if (!q) return publicationsData;
+                return publicationsData.filter(p => {
+                    const hay = normalizeText([p.citation, p.category, p.year].join(' '));
+                    return hay.includes(q);
+                });
+            }
+
+            function makePubItem(pub) {
+                const wrap = document.createElement('div');
+                wrap.className = 'pub-item';
+
+                const cite = document.createElement('div');
+                cite.textContent = pub.citation;
+                wrap.appendChild(cite);
+
+                const meta = document.createElement('div');
+                meta.className = 'pub-meta';
+
+                const links = document.createElement('div');
+                links.className = 'pub-links';
+
+                const pdfUrl = resolvePDF(pub.pdf);
+                if (pdfUrl) {
+                    const a = document.createElement('a');
+                    a.href = pdfUrl;
+                    a.target = '_blank';
+                    a.rel = 'noopener noreferrer';
+                    a.textContent = 'PDF';
+                    links.appendChild(a);
+                }
+
+                const doiUrl = resolveDOI(pub.doi);
+                if (doiUrl) {
+                    const a = document.createElement('a');
+                    a.href = doiUrl;
+                    a.target = '_blank';
+                    a.rel = 'noopener noreferrer';
+                    a.textContent = 'DOI';
+                    links.appendChild(a);
+                }
+
+                meta.appendChild(links);
+
+                const bibBtn = document.createElement('button');
+                bibBtn.className = 'pub-btn';
+                bibBtn.type = 'button';
+                bibBtn.textContent = 'BibTeX';
+                bibBtn.addEventListener('click', () => {
+                    const text = pub.bibtex || 'BibTeX not available for this entry.';
+                    bibContent.textContent = text;
+                    bibBackdrop.style.display = 'flex';
+                });
+                meta.appendChild(bibBtn);
+
+                wrap.appendChild(meta);
+                return wrap;
+            }
+
+            function renderByYear(items) {
+                const years = [...new Set(items.map(p => p.year))].sort((a, b) => b - a);
+
+                years.forEach(year => {
+                    const section = document.createElement('section');
+                    const h3 = document.createElement('h3');
+                    h3.textContent = year;
+                    section.appendChild(h3);
+
+                    const inYear = items.filter(p => p.year === year);
+
+                    // group by category in fixed order
+                    const cats = [...new Set(inYear.map(p => p.category))];
+                    const orderedCats = catOrderJP.filter(c => cats.includes(c)).concat(cats.filter(c => !catOrderJP.includes(c)));
+
+                    orderedCats.forEach(cat => {
+                        const h4 = document.createElement('h4');
+                        h4.textContent = catLabelEN[cat] || cat;
+                        h4.style.marginTop = '15px';
+                        h4.style.color = '#444';
+                        section.appendChild(h4);
+
+                        inYear.filter(p => p.category === cat).forEach(pub => section.appendChild(makePubItem(pub)));
+                    });
+
+                    container.appendChild(section);
+                });
+            }
+
+            function renderByCategory(items) {
+                const cats = [...new Set(items.map(p => p.category))];
+                const orderedCats = catOrderJP.filter(c => cats.includes(c)).concat(cats.filter(c => !catOrderJP.includes(c)));
+
+                orderedCats.forEach(cat => {
+                    const section = document.createElement('section');
+                    const h3 = document.createElement('h3');
+                    h3.textContent = catLabelEN[cat] || cat;
+                    section.appendChild(h3);
+
+                    const inCat = items.filter(p => p.category === cat).sort((a, b) => (b.year - a.year));
+                    inCat.forEach(pub => section.appendChild(makePubItem(pub)));
+
+                    container.appendChild(section);
+                });
+            }
+
+            function render() {
+                container.innerHTML = '';
+
+                const items = filteredData();
+                if (!items.length) {
+                    container.innerHTML = '<p>No matching publications.</p>';
+                    return;
+                }
+
+                if (state.view === 'year') {
+                    renderByYear(items);
+                } else {
+                    renderByCategory(items);
+                }
+            }
+
+            function setActive() {
+                btnYear.classList.toggle('active', state.view === 'year');
+                btnCat.classList.toggle('active', state.view === 'cat');
+            }
+
+            btnYear.addEventListener('click', () => {
+                state.view = 'year';
+                setActive();
+                render();
+            });
+            btnCat.addEventListener('click', () => {
+                state.view = 'cat';
+                setActive();
+                render();
+            });
+            search.addEventListener('input', (e) => {
+                state.query = e.target.value;
+                render();
+            });
+
+            // modal actions
+            bibClose.addEventListener('click', () => bibBackdrop.style.display = 'none');
+            bibBackdrop.addEventListener('click', (e) => {
+                if (e.target === bibBackdrop) bibBackdrop.style.display = 'none';
+            });
+            bibCopy.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(bibContent.textContent);
+                    showToast('Copied!');
+                } catch {
+                    showToast('Copy failed');
+                }
+            });
+
+            setActive();
+            render();
+        });
+    </script>
+
+</body>
+
+</html>

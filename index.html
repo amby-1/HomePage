@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>広大メカトロニクス研究室 - Mechatronics Laboratory</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div id="site-header"></div>
+<script src="js/header-ja.js"></script>
+
+<main class="container">
+    <section id="about">
+        <h2>研究室紹介</h2>
+        <p>
+            <b>メカトロニクス技術は，電気・制御工学と機械工学を融合した学際的分野であり，ロボット技術の中核を成します．</b>
+            <br>
+            <b>本研究室では，身体構造と制御の設計を切り離さず不可分な問題として捉え，身体に知能を内包するロボットメカニズムと生物模倣に基づく制御手法を基盤に研究を進めています．</b>
+            <br>
+            <b>これらを基に，脚歩行ロボット，ドローン，マニピュレータ，さらにはセンシング技術までを対象として，社会課題の解決に貢献する新しいロボット／メカトロニクスシステムの創成を目指します．</b>
+        </p>
+        <!-- Main visual: use images/top_image_ja.png -->
+        <div class="hero" style="margin:20px 0;">
+            <img src="images/top_image_ja.png" alt="研究紹介メイン画像" style="width:100%;height:auto;border-radius:8px;display:block;" />
+        </div>
+    </section>
+
+        <section id="news">
+            <h2>News</h2>
+            <ul class="news-list" id="news-container">
+                <!-- News items will be loaded here via JavaScript -->
+                <li>Loading news...</li>
+            </ul>
+        </section>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="js/footer-ja.js"></script>
+
+    <script src="data/news.js"></script>
+    <script>
+        // Load News Data
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('news-container');
+            container.innerHTML = ''; // Clear loading text
+
+            if (typeof newsData !== 'undefined') {
+                // Show top 5 news
+                newsData.slice(0, 5).forEach(item => {
+                    const li = document.createElement('li');
+
+                    const dateSpan = document.createElement('span');
+                    dateSpan.className = 'news-date';
+                    dateSpan.textContent = item.date;
+
+                    const catSpan = document.createElement('span');
+                    catSpan.className = 'news-category';
+                    catSpan.textContent = item.category;
+
+                    const titleSpan = document.createElement('span');
+                    titleSpan.className = 'news-title';
+
+                    if (item.link && item.link !== '#') {
+                        const a = document.createElement('a');
+                        a.href = item.link;
+                        a.textContent = item.title;
+                        titleSpan.appendChild(a);
+                    } else {
+                        titleSpan.textContent = item.title;
+                    }
+
+                    li.appendChild(dateSpan);
+                    li.appendChild(catSpan);
+                    li.appendChild(titleSpan);
+                    container.appendChild(li);
+                });
+            } else {
+                container.innerHTML = '<li>Error loading news.</li>';
+            }
+        });
+    </script>
+
+</body>
+
+</html>

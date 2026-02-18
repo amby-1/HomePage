@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mechatronics Laboratory - Mechatronics Laboratory</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+<div id="site-header"></div>
+<script src="../js/header-en.js"></script>
+
+<main class="container">
+        <section id="about">
+            <h2>About Us</h2>
+            <p>
+                The Ambe Group focuses on the future of Human-AI symbiosis.
+                We conduct research on Machine Learning, Human-Computer Interaction, and their applications.
+            </p>
+            <div
+                style="background-color: #eee; height: 300px; display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+                <p style="color: #666;">Main Visual / Research Highlight</p>
+            </div>
+        </section>
+
+        <section id="news">
+            <h2>News</h2>
+            <ul class="news-list" id="news-container">
+                <li>Loading news...</li>
+            </ul>
+        </section>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="../js/footer-en.js"></script>
+
+    <script src="../data/news.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('news-container');
+            container.innerHTML = '';
+
+            if (typeof newsData !== 'undefined') {
+                newsData.slice(0, 5).forEach(item => {
+                    const li = document.createElement('li');
+
+                    const dateSpan = document.createElement('span');
+                    dateSpan.className = 'news-date';
+                    dateSpan.textContent = item.date;
+
+                    const catSpan = document.createElement('span');
+                    catSpan.className = 'news-category';
+                    catSpan.textContent = item.category;
+
+                    const titleSpan = document.createElement('span');
+                    titleSpan.className = 'news-title';
+
+                    if (item.link && item.link !== '#') {
+                        const a = document.createElement('a');
+                        a.href = item.link;
+                        a.textContent = item.title;
+                        titleSpan.appendChild(a);
+                    } else {
+                        titleSpan.textContent = item.title;
+                    }
+
+                    li.appendChild(dateSpan);
+                    li.appendChild(catSpan);
+                    li.appendChild(titleSpan);
+                    container.appendChild(li);
+                });
+            } else {
+                container.innerHTML = '<li>Error loading news.</li>';
+            }
+        });
+    </script>
+
+</body>
+
+</html>

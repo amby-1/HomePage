@@ -1,0 +1,203 @@
+:root {
+    --primary-color: #003366; /* Dark Blue */
+    --accent-color: #6699cc;
+    --text-color: #333;
+    --bg-color: #fff;
+    --light-bg: #f4f4f4;
+    --max-width: 1000px;
+}
+
+body {
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 1rem 0;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1.site-title {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+h1.site-title a {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 40px 0;
+    min-height: 60vh;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+h2 {
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+footer {
+    background-color: #eee;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    font-size: 0.9rem;
+}
+
+/* News List */
+.news-list {
+    list-style: none;
+    padding: 0;
+}
+
+.news-list li {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.news-date {
+    font-weight: bold;
+    margin-right: 15px;
+    color: #666;
+    min-width: 100px;
+}
+
+.news-category {
+    background-color: var(--accent-color);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-right: 15px;
+    height: fit-content;
+}
+
+.news-title a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.news-title a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    nav ul {
+        margin-top: 10px;
+        flex-wrap: wrap;
+    }
+    
+    nav ul li {
+        margin-left: 0;
+        margin-right: 15px;
+    }
+}
+
+/* Allow wider container on large screens so member cards can expand */
+@media (min-width: 1200px) {
+    .container { max-width: 1400px; }
+}
+
+/* allow slightly wider container earlier so members grid can use more width on typical desktops */
+@media (min-width: 1000px) {
+    .container { max-width: 1200px; }
+}
+
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+@media (max-width: 900px) {
+  .members-grid { grid-template-columns: 1fr; }
+}
+
+/* グループごとの見分け（背景色） */
+.member-card.group-takaki {
+  background: #f3f8ff;           /* 薄い青 */
+  border-left: 6px solid #6699cc;
+}
+.member-card.group-ambe {
+  background: #f2fbf4;           /* 薄い緑 */
+  border-left: 6px solid #5fae7a; /* 緑系ライン */
+}
+
+/* カードがgrid gapで整うように（既存marginを無効化） */
+.member-card { margin-bottom: 0 !important; }
+
+/* Sticky header + two-line title (added for local/GitHub Pages) */
+header {
+    position: fixed; /* �� sticky �ł͂Ȃ� fixed */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+}
+
+body {
+    padding-top: var(--header-h, 0px);
+}
+
+.site-title{ margin:0; line-height:1.15; }
+.site-title-link{ color:#fff; text-decoration:none; display:inline-block; }
+.site-affiliation{ display:block; font-size:.85rem; font-weight:500; opacity:.92; letter-spacing:.02em; }
+.site-labname{ display:block; margin-top:4px; font-size:1.45rem; font-weight:700; }
+
+html{ scroll-padding-top: 90px; }
+@media (max-width: 768px){
+  .site-affiliation{ font-size:.78rem; }
+  .site-labname{ font-size:1.15rem; }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research - メカトロニクス研究室</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .group-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:20px}
+    @media (max-width:900px){.group-cards{grid-template-columns:1fr}}
+    .group-card{border:1px solid #ddd;border-radius:10px;overflow:hidden;background:#fff;text-decoration:none;color:inherit;display:block}
+    .group-card:hover{box-shadow:0 6px 18px rgba(0,0,0,.12)}
+    .group-card img{width:100%;height:220px;object-fit:cover;display:block}
+    .group-card .body{padding:16px}
+    .group-card .title{margin:0 0 6px 0;color:var(--primary-color);font-size:1.2rem}
+    .group-card .desc{margin:0;color:#555}
+    .note{margin-top:10px;color:#666;font-size:.95rem}
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <script src="js/header-ja.js"></script>
+
+  <main class="container">
+    <h2>Research</h2>
+    <p class="note">
+      研究内容は2つのグループに分かれて掲載しています。興味のあるグループを選んでください。
+    </p>
+
+    <div class="group-cards">
+      <a class="group-card" href="research/takaki/index.html">
+        <img src="research/takaki/assets/cover.svg" alt="高木グループ" />
+        <div class="body">
+          <h3 class="title">高木グループ</h3>
+          <p class="desc">（ここに高木グループの研究の一言説明を入れます）</p>
+        </div>
+      </a>
+
+      <a class="group-card" href="research/ambe/index.html">
+        <img src="research/ambe/assets/cover.svg" alt="安部グループ" />
+        <div class="body">
+          <h3 class="title">安部グループ</h3>
+          <p class="desc">（ここに安部グループの研究の一言説明を入れます）</p>
+        </div>
+      </a>
+    </div>
+  </main>
+
+    <div id="site-footer"></div>
+    <script src="js/footer-ja.js"></script>
+</body>
+</html>

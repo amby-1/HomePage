@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>研究テーマ | 安部グループ</title>
+
+        <base href="../../" />
+
+        <link rel="stylesheet" href="css/style.css" />
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <style>
+                .breadcrumb { font-size: .95rem; color: #666; margin: 0 0 12px 0; }
+                .tagline { font-style: italic; color: #666; margin: 6px 0 0; }
+                .lead { background: var(--light-bg); padding: 16px 18px; border-left: 4px solid var(--primary-color); border-radius: 8px; }
+                .two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+                .panel { background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; padding: 16px 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+                .media-box { background: #111; width: 100%; aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; color: #fff; margin-top: 10px; border-radius: 10px; overflow: hidden; }
+                .math-box { background: #fafafa; padding: 12px 14px; border: 1px solid #eee; border-radius: 10px; text-align: center; overflow-x: auto; }
+                .pub-list { list-style: none; padding: 0; margin: 0; }
+                .pub-list li { margin-bottom: 12px; padding-left: 18px; position: relative; }
+                .pub-list li::before { content: "●"; position: absolute; left: 0; color: var(--accent-color); }
+                .award { color: #d9534f; font-weight: 700; font-size: .9rem; }
+
+                @media (max-width: 900px) {
+                        .two-col { grid-template-columns: 1fr; }
+                }
+        </style>
+</head>
+<body>
+
+    <div id="site-header"></div>
+    <script src="js/header-ja.js"></script>
+
+    <main class="container">
+        <p class="breadcrumb"><a href="research.html">Research</a> / 安部グループ / 研究テーマ</p>
+        <h2>[研究テーマ名]：数理モデルに基づくバイオインスパイアード制御</h2>
+        <p class="tagline">〜生物のしなやかさを数理で解き明かし、ロボットに宿す〜</p>
+
+        <section class="lead">
+            <h3>概要 (Overview)</h3>
+            <p>ここには研究の核心を3行程度で記述してください。どのような生物学的知見、あるいは数理的課題から出発し、どのようなブレイクスルーを目指したのかを簡潔に示します。</p>
+        </section>
+
+        <section>
+            <div class="two-col">
+                <div class="panel">
+                    <h3>手法</h3>
+                    <p>本研究の基盤となる数理モデルです。例えば、非線形振動子の相互作用を以下のように定義しています。</p>
+                    <div class="math-box">
+                        $$ \tau_i \dot{x}_i = -x_i + \sum_{j=1}^{n} w_{ij} f(x_j) + S_i $$
+                    </div>
+                    <p>この数式により、環境適応的な歩容生成が可能となります。</p>
+                </div>
+                
+                <div class="panel">
+                    <h3>ロボットデザイン</h3>
+                    <div class="media-box">
+                        <p>Robot Image / Video Area</p>
+                    </div>
+                    <p>数理モデルを実装するためのハードウェア構成。3Dプリンタと柔軟素材を組み合わせ、劣駆動系としての特性を最大化しています。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h3>主な成果 (Key Publications)</h3>
+            <ul class="pub-list">
+                <li><strong>T. Hirodai</strong>, et al., "Mathematical Design of Bio-inspired Robot," <em>IEEE Transactions on Robotics</em>, 2025. <span class="award">[Best Paper Award]</span></li>
+                <li><strong>T. Hirodai</strong>, et al., "Analysis of ...," <em>ICRA 2024</em>.</li>
+            </ul>
+        </section>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="js/footer-ja.js"></script>
+
+</body>
+</html>

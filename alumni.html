@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni - メカトロニクス研究室</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div id="site-header"></div>
+    <script src="js/header-ja.js"></script>
+
+    <main class="container">
+        <h2>Alumni (過去のメンバー)</h2>
+        <div id="alumni-container">
+            <p>Loading...</p>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <a href="members.html">&lt; Back to Current Members</a>
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="js/footer-ja.js"></script>
+
+    <script src="data/members.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('alumni-container');
+            container.innerHTML = '';
+
+            if (typeof membersData !== 'undefined') {
+                const alumni = membersData.filter(m => m.year !== 'current');
+                const years = [...new Set(alumni.map(m => m.year))].sort().reverse();
+
+                years.forEach(year => {
+                    const yearSection = document.createElement('section');
+                    const h3 = document.createElement('h3');
+                    h3.textContent = `${year}年度`;
+                    yearSection.appendChild(h3);
+
+                    const ul = document.createElement('ul');
+                    alumni.filter(m => m.year === year).forEach(m => {
+                        const li = document.createElement('li');
+                        li.textContent = `${m.name} (${m.role})`;
+                        ul.appendChild(li);
+                    });
+
+                    yearSection.appendChild(ul);
+                    container.appendChild(yearSection);
+                });
+
+                if (alumni.length === 0) {
+                    container.textContent = "過去のメンバー情報はまだありません。";
+                }
+            } else {
+                container.textContent = 'Error loading data.';
+            }
+        });
+    </script>
+
+</body>
+
+</html>

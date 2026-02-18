@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研究テーマ | 安部グループ</title>
+
+    <base href="../../" />
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .breadcrumb { font-size: .95rem; color: #666; margin: 0 0 12px 0; }
+        .tagline { font-style: italic; color: #666; margin: 6px 0 0; }
+        .lead { background: var(--light-bg); padding: 16px 18px; border-left: 4px solid var(--primary-color); border-radius: 8px; }
+        .two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+        .panel { background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; padding: 16px 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .media-box { background: #111; width: 100%; aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; color: #fff; margin-top: 10px; border-radius: 10px; overflow: hidden; }
+        .math-box { background: #fafafa; padding: 12px 14px; border: 1px solid #eee; border-radius: 10px; text-align: center; overflow-x: auto; }
+        .pub-list { list-style: none; padding: 0; margin: 0; }
+        .pub-list li { margin-bottom: 12px; padding-left: 18px; position: relative; }
+        .pub-list li::before { content: "●"; position: absolute; left: 0; color: var(--accent-color); }
+        .award { color: #d9534f; font-weight: 700; font-size: .9rem; }
+
+        @media (max-width: 900px) {
+            .two-col { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="site-header"></div>
+    <script src="js/header-ja.js"></script>
+
+    <main class="container">
+        <p class="breadcrumb"><a href="research.html">Research</a> / <a href="research/ambe/index.html">安部グループ</a> / 研究テーマ</p>
+        <h2>サンプル研究 02：流体噴射による推進制御</h2>
+        <p class="tagline">〜生物にはないアクチュエータで運動を拡張〜</p>
+
+        <section class="lead">
+            <h3>概要 (Overview)</h3>
+            <p>流体噴射アクチュエータを用いた推進機構を設計し、身体構造と制御の同時最適化を目指します。</p>
+        </section>
+
+        <section>
+            <div class="two-col">
+                <div class="panel">
+                    <h3>手法</h3>
+                    <p>推力と姿勢の関係をモデル化し、安定性を解析します。</p>
+                    <div class="math-box">
+                        $$ m\ddot{x} = \sum_i F_i\cos\phi_i - c\dot{x} $$
+                    </div>
+                    <p>推力分配を最適化することで、エネルギー効率を改善します。</p>
+                </div>
+
+                <div class="panel">
+                    <h3>ロボットデザイン</h3>
+                    <div class="media-box">
+                        <p>Robot Image / Video Area</p>
+                    </div>
+                    <p>噴射ノズルの配置と配管設計を統合し、安定した推進を実現します。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h3>主な成果 (Key Publications)</h3>
+            <ul class="pub-list">
+                <li><strong>A. Researcher</strong>, et al., "Jet-based Propulsion for Bio-inspired Robots," <em>Robotics Journal</em>, 2025.</li>
+                <li><strong>A. Researcher</strong>, et al., "Efficient Thrust Allocation," <em>IROS 2024</em>.</li>
+            </ul>
+        </section>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="js/footer-ja.js"></script>
+
+</body>
+</html>
