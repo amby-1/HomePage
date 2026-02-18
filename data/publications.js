@@ -9,20 +9,20 @@ const publicationsData = [
   {
     year: 2024,
     category: "国際会議論文（査読付き）",
-    citation: "Taro Ambe, Hanako Yamada, 'New Method for AI', ICCV 2024.",
+    citation: "TEST, 'TEST', TEST 2024.",
     doi: "10.0000/iccv.2024.0001",
     pdf: "pdfs/iccv2024_ambe.pdf",
     bibtex: `@inproceedings{ambe2024newmethod,
-  title={New Method for AI},
+  title={TEST},
   author={Ambe, Taro and Yamada, Hanako},
-  booktitle={Proceedings of ICCV},
+  booktitle={Proceedings of TEST},
   year={2024}
 }`
   },
   {
     year: 2024,
     category: "学術論文",
-    citation: "Ichiro Suzuki, Taro Ambe, 'Study on Something', Journal of AI, Vol.10, No.2, 2024.",
+    citation: "TEST, 'TEST Study on Something', Journal of AI, Vol.10, No.2, 2024.",
     doi: "10.0000/jai.2024.0002",
     pdf: "pdfs/journal2024_suzuki.pdf",
     bibtex: `@article{suzuki2024study,
@@ -37,7 +37,7 @@ const publicationsData = [
   {
     year: 2024,
     category: "国内会議発表",
-    citation: "田中健太, 佐藤次郎, '深層学習の応用', 第20回情報科学大会, 2024.",
+    citation: "TEST, 佐藤次郎, '深層学習の応用', 第20回情報科学大会, 2024.",
     pdf: "pdfs/domestic2024_tanaka.pdf",
     bibtex: `@inproceedings{tanaka2024domestic,
   title={深層学習の応用},
@@ -49,7 +49,7 @@ const publicationsData = [
   {
     year: 2024,
     category: "招待講演",
-    citation: "安部太郎, 'AIと社会の未来', 特別講演会, 2024.",
+    citation: "TEST, 'TESTと社会の未来', 特別講演会, 2024.",
     bibtex: `@misc{ambe2024invited,
   title={AIと社会の未来},
   author={安部, 太郎},
@@ -60,7 +60,7 @@ const publicationsData = [
   {
     year: 2023,
     category: "国際会議論文（査読付き）",
-    citation: "Jiro Sato, Taro Ambe, 'Human-AI Interaction Design', CHI 2023.",
+    citation: "TEST, Taro Ambe, 'Human-AI Interaction Design', TEST 2023.",
     doi: "10.0000/chi.2023.0003",
     pdf: "pdfs/chi2023_sato.pdf",
     bibtex: `@inproceedings{sato2023hai,
@@ -73,11 +73,11 @@ const publicationsData = [
   {
     year: 2023,
     category: "解説記事",
-    citation: "安部太郎, '最新AI技術の動向', 学会誌解説, 2023.",
+    citation: "TEST, 'TEST技術の動向', 学会誌解説, 2023.",
     pdf: "pdfs/article2023_ambe.pdf",
     bibtex: `@article{ambe2023article,
-  title={最新AI技術の動向},
-  author={安部, 太郎},
+  title={TEST技術の動向},
+  author={TEST, 太郎},
   journal={学会誌},
   note={解説},
   year={2023}
@@ -86,10 +86,10 @@ const publicationsData = [
   {
     year: 2023,
     category: "受賞",
-    citation: "山田花子, '若手奨励賞', 第10回AI学会, 2023.",
+    citation: "TEST, '若手奨励賞', 第10回AI学会, 2023.",
     bibtex: `@misc{yamada2023award,
-  title={若手奨励賞},
-  author={山田, 花子},
+  title={TEST若手奨励賞},
+  author={TEST, 花子},
   howpublished={第10回AI学会},
   year={2023}
 }`
@@ -97,10 +97,10 @@ const publicationsData = [
   {
     year: 2022,
     category: "その他",
-    citation: "安部太郎, 'AIの未来（招待講演）', 〇〇シンポジウム, 2022.",
+    citation: "TEST, 'AIの未来（招待講演）', 〇〇シンポジウム, 2022.",
     bibtex: `@misc{ambe2022other,
-  title={AIの未来（招待講演）},
-  author={安部, 太郎},
+  title={TESTの未来（招待講演）},
+  author={TEST, 太郎},
   howpublished={〇〇シンポジウム},
   year={2022}
 }`
