@@ -28,7 +28,7 @@ const membersData = [
     {
         "id": "mukherjee",
         "name": "Mukherjee Sourajit",
-        "name_en": "Mukherjee Sourajit",
+        "name_en": "Sourajit Mukherjee",
         "role": "博士課程3年",
         "role_en": "D3",
         "year": "current",
@@ -40,7 +40,7 @@ const membersData = [
     {
         "id": "bao",
         "name": "Bao Yuanhao",
-        "name_en": "Bao Yuanhao",
+        "name_en": "Yuanhao Bao",
         "role": "博士課程3年",
         "role_en": "D3",
         "year": "current",
@@ -52,7 +52,7 @@ const membersData = [
     {
         "id": "sa",
         "name": "左 錦潤",
-        "name_en": "",
+        "name_en": "Jinrun Zuo",
         "role": "博士課程3年",
         "role_en": "D3",
         "year": "current",
@@ -64,7 +64,7 @@ const membersData = [
     {
         "id": "sadai",
         "name": "貞井 圭介",
-        "name_en": "",
+        "name_en": "Keisuke Sadai",
         "role": "博士課程2年",
         "role_en": "D2",
         "year": "current",
@@ -76,7 +76,7 @@ const membersData = [
     {
         "id": "honda",
         "name": "本田 瑛大",
-        "name_en": "",
+        "name_en": "Eidai Honda",
         "role": "修士課程2年",
         "role_en": "M2",
         "year": "current",
@@ -100,7 +100,7 @@ const membersData = [
     {
         "id": "sugimoto",
         "name": "杦本 琉馬",
-        "name_en": "",
+        "name_en": "Ryuma Sugimoto",
         "role": "修士課程2年",
         "role_en": "M2",
         "year": "current",
@@ -124,7 +124,7 @@ const membersData = [
     {
         "id": "yamagishi",
         "name": "山岸 勇太",
-        "name_en": "",
+        "name_en": "Yuta Yamagishi",
         "role": "修士課程2年",
         "role_en": "M2",
         "year": "current",
@@ -136,7 +136,7 @@ const membersData = [
     {
         "id": "sakageda",
         "name": "坂枝 楓眞",
-        "name_en": "",
+        "name_en": "Fuma Sakaeda",
         "role": "修士課程1年",
         "role_en": "M1",
         "year": "current",
@@ -148,7 +148,7 @@ const membersData = [
     {
         "id": "fujikawa",
         "name": "藤川 侑大",
-        "name_en": "",
+        "name_en": "Yudai Fujikawa",
         "role": "修士課程1年",
         "role_en": "M1",
         "year": "current",
@@ -160,7 +160,7 @@ const membersData = [
     {
         "id": "tsuhako",
         "name": "津波古 詩恩",
-        "name_en": "",
+        "name_en": "Sean Tsuhako",
         "role": "修士課程1年",
         "role_en": "M1",
         "year": "current",
@@ -208,7 +208,7 @@ const membersData = [
     {
         "id": "yokokawa",
         "name": "横川 雅和",
-        "name_en": "",
+        "name_en": "Masakazu Yokokawa",
         "role": "学部4年",
         "role_en": "B4",
         "year": "current",
@@ -220,7 +220,7 @@ const membersData = [
     {
         "id": "ogasawara",
         "name": "小笠原 有謙",
-        "name_en": "",
+        "name_en": "Yuken Ogasawara",
         "role": "学部4年",
         "role_en": "B4",
         "year": "current",
@@ -232,7 +232,7 @@ const membersData = [
     {
         "id": "kageyama",
         "name": "景山 桜",
-        "name_en": "",
+        "name_en": "Sakura Kageyama",
         "role": "学部4年",
         "role_en": "B4",
         "year": "current",
@@ -244,7 +244,7 @@ const membersData = [
     {
         "id": "ebuchi",
         "name": "江渕 優一郎",
-        "name_en": "",
+        "name_en": "Yuichiro Ebuchi",
         "role": "学部4年",
         "role_en": "B4",
         "year": "current",
@@ -256,7 +256,7 @@ const membersData = [
     {
         "id": "tsutsui",
         "name": "筒井 奏貴",
-        "name_en": "",
+        "name_en": "Soki Tsutsui",
         "role": "学部4年",
         "role_en": "B4",
         "year": "current",
@@ -268,7 +268,7 @@ const membersData = [
     {
         "id": "nishijima",
         "name": "西嶋 隼規",
-        "name_en": "",
+        "name_en": "Hayaki Nishijima",
         "role": "学部4年",
         "role_en": "B4",
         "year": "current",
@@ -280,7 +280,7 @@ const membersData = [
     {
         "id": "yamakoshi",
         "name": "山越 丈路",
-        "name_en": "",
+        "name_en": "Takeru Yamagoshi",
         "role": "学部4年",
         "role_en": "B4",
         "year": "current",
