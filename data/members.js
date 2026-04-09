@@ -88,7 +88,7 @@ const membersData = [
     {
         "id": "nagao",
         "name": "長尾 勇亮",
-        "name_en": "",
+        "name_en": "Yusuke Nagao",
         "role": "修士課程2年",
         "role_en": "M2",
         "year": "current",
@@ -112,7 +112,7 @@ const membersData = [
     {
         "id": "watanabe_t",
         "name": "渡邉 竜暉",
-        "name_en": "",
+        "name_en": "Tatsuki Watanabe",
         "role": "修士課程2年",
         "role_en": "M2",
         "year": "current",
