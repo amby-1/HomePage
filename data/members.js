@@ -74,6 +74,18 @@ const membersData = [
         "email": ""
     },
     {
+        "id": "Nishihara",
+        "name": "西原 正継",
+        "name_en": "Masatsugu Nishihara",
+        "role": "博士課程1年 (社会人博士)",
+        "role_en": "D1",
+        "year": "current",
+        "group": "高木グループ",
+        "group_en": "Takaki Group",
+        "image": "",
+        "email": ""
+    },
+    {
         "id": "honda",
         "name": "本田 瑛大",
         "name_en": "Eidai Honda",
