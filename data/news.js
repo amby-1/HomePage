@@ -1,16 +1,14 @@
 const newsData = [
     {
-        "date": "2025-04-01",
-        "title": "工事中です．しばらくお待ちください。",
+        "date": "2026-04-01",
+        "title": "メカトロニクス研究室が発足しました",
+        "title_en": "The Mechatronics Laboratory has been established",
         "category": "お知らせ",
-        "link": "members.html"
+        "category_en": "Announcements",
+        "link": "index.html",
+        "link_en": "en/index.html"
     },
-    {
-        "date": "2025-03-20",
-        "title": "工事中です．しばらくお待ちください。",
-        "category": "受賞",
-        "link": "#"
-    },
+    /*
     {
         "date": "2025-02-15",
         "title": "工事中です．しばらくお待ちください。",
@@ -29,6 +27,7 @@ const newsData = [
         "category": "研究",
         "link": "publications.html"
     }
+        */
     /*
     ,
     {

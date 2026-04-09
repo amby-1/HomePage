@@ -70,18 +70,21 @@
 
                     const catSpan = document.createElement('span');
                     catSpan.className = 'news-category';
-                    catSpan.textContent = item.category;
+                    catSpan.textContent = item.category_en || item.category;
 
                     const titleSpan = document.createElement('span');
                     titleSpan.className = 'news-title';
 
-                    if (item.link && item.link !== '#') {
+                    const title = item.title_en || item.title;
+                    const link = item.link_en || item.link;
+
+                    if (link && link !== '#') {
                         const a = document.createElement('a');
-                        a.href = item.link;
-                        a.textContent = item.title;
+                        a.href = link;
+                        a.textContent = title;
                         titleSpan.appendChild(a);
                     } else {
-                        titleSpan.textContent = item.title;
+                        titleSpan.textContent = title;
                     }
 
                     li.appendChild(dateSpan);
