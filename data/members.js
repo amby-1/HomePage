@@ -77,7 +77,7 @@ const membersData = [
         "id": "Nishihara",
         "name": "西原 正継",
         "name_en": "Masatsugu Nishihara",
-        "role": "博士課程1年 (社会人博士)",
+        "role": "博士課程1年",
         "role_en": "D1",
         "year": "current",
         "group": "高木グループ",
