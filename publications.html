@@ -207,6 +207,7 @@
     <div id="site-footer"></div>
     <script src="js/footer-ja.js"></script>
 
+    <script src="data/members.js"></script>
     <script src="data/publications.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -264,6 +265,48 @@
                     '"': '&quot;',
                     "'": '&#39;'
                 }[c]));
+            };
+
+            const escapeRegExp = (s) => (s || "").replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+            const makeLastFirstVariant = (name) => {
+                const parts = (name || "").trim().split(/\s+/);
+                if (parts.length < 2) return "";
+                const first = parts.slice(0, -1).join(' ');
+                const last = parts[parts.length - 1];
+                return `${last}, ${first}`;
+            };
+
+            const getLabMemberNames = () => {
+                if (typeof membersData === 'undefined' || !Array.isArray(membersData)) return [];
+                const names = [];
+                membersData
+                    .filter((m) => !!m)
+                    .forEach((m) => {
+                        if (m.name) {
+                            names.push(m.name);
+                            names.push(m.name.replace(/\s+/g, ''));
+                        }
+                        if (m.name_en) {
+                            names.push(m.name_en);
+                            const lastFirst = makeLastFirstVariant(m.name_en);
+                            if (lastFirst) names.push(lastFirst);
+                        }
+                    });
+
+                return [...new Set(names.filter(Boolean))].sort((a, b) => b.length - a.length);
+            };
+
+            const labMemberNames = getLabMemberNames();
+
+            const highlightLabMembers = (text) => {
+                let html = escapeHtml(text || "");
+                labMemberNames.forEach((name) => {
+                    const escapedName = escapeHtml(name);
+                    const re = new RegExp(escapeRegExp(escapedName), 'g');
+                    html = html.replace(re, `<strong><u>${escapedName}</u></strong>`);
+                });
+                return html;
             };
 
             // Modal for BibTeX
@@ -341,7 +384,7 @@
                 item.className = 'pub-item';
 
                 const citationDiv = document.createElement('div');
-                citationDiv.innerHTML = escapeHtml(pub.citation);
+                citationDiv.innerHTML = highlightLabMembers(pub.citation);
                 item.appendChild(citationDiv);
 
                 const meta = document.createElement('div');
@@ -370,12 +413,14 @@
 
                 meta.appendChild(links);
 
-                const bibBtn = document.createElement('button');
-                bibBtn.className = 'pub-btn';
-                bibBtn.type = 'button';
-                bibBtn.textContent = 'BibTeX';
-                bibBtn.addEventListener('click', () => openBibtex(pub.bibtex));
-                meta.appendChild(bibBtn);
+                if (pub.bibtex) {
+                    const bibBtn = document.createElement('button');
+                    bibBtn.className = 'pub-btn';
+                    bibBtn.type = 'button';
+                    bibBtn.textContent = 'BibTeX';
+                    bibBtn.addEventListener('click', () => openBibtex(pub.bibtex));
+                    meta.appendChild(bibBtn);
+                }
 
                 item.appendChild(meta);
                 return item;
