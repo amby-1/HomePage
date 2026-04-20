@@ -179,6 +179,13 @@
     <main class="container">
         <h2>Publications</h2>
 
+        <p style="margin: 8px 0 16px; line-height: 1.8; color: #444;">
+            Note: This page currently lists publications from 2026 onward.<br>
+            You can also find each faculty member's publication list here:
+            <a href="https://seeds.office.hiroshima-u.ac.jp/profile/ja.0e5f464461afe4e0520e17560c007669.html" target="_blank" rel="noopener noreferrer">Professor Takaki</a>
+            <a href="https://sites.google.com/view/yuichi-ambe/publication-list?authuser=0" target="_blank" rel="noopener noreferrer">Associate Professor Ambe</a>
+        </p>
+
         <div class="pub-controls">
             <div class="left">
                 <div class="seg" role="tablist" aria-label="View">
@@ -188,7 +195,7 @@
                 <input id="pub-search" class="pub-search" type="search" placeholder="Search (authors, title, venue...)" aria-label="Search publications">
             </div>
             <div style="font-size:0.9rem; color:#666;">
-                PDF / DOI / BibTeX available per entry
+                PDF / DOI / BibTeX are available from each entry when provided
             </div>
         </div>
 
@@ -217,6 +224,7 @@
     </div>
     <div class="toast" id="toast">Copied!</div>
 
+    <script src="../data/members.js"></script>
     <script src="../data/publications.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -225,27 +233,38 @@
             const btnCat = document.getElementById('btn-view-cat');
             const search = document.getElementById('pub-search');
 
-            // Data categories are in Japanese; map to English display labels.
-            const catOrderJP = [
+            const categoryOrder = [
                 "学術論文",
+                "招待講演",
+                "解説記事",
                 "国際会議論文（査読付き）",
                 "国際会議発表",
                 "国内会議発表",
-                "招待講演",
-                "解説記事",
                 "受賞",
                 "その他"
             ];
 
-            const catLabelEN = {
+            const categoryLabel = {
                 "学術論文": "Journal Papers",
+                "招待講演": "Invited Talks",
+                "解説記事": "Tutorial / Survey Articles",
                 "国際会議論文（査読付き）": "International Conference Papers (Peer-reviewed)",
                 "国際会議発表": "International Conference Presentations",
                 "国内会議発表": "Domestic Conference Presentations",
-                "招待講演": "Invited Talks",
-                "解説記事": "Tutorial / Survey Articles",
                 "受賞": "Awards",
                 "その他": "Others"
+            };
+
+            const legacyTypeToCategory = {
+                "Journal": "学術論文",
+                "Invited Talk": "招待講演",
+                "Article": "解説記事",
+                "International Conference": "国際会議論文（査読付き）",
+                "International Conference (Peer-reviewed)": "国際会議論文（査読付き）",
+                "International Conference (Non-refereed)": "国際会議発表",
+                "Domestic Conference": "国内会議発表",
+                "Award": "受賞",
+                "Other": "その他"
             };
 
             const state = {
@@ -258,6 +277,15 @@
             const bibClose = document.getElementById('bibtex-close');
             const bibCopy = document.getElementById('bibtex-copy');
             const toast = document.getElementById('toast');
+
+            const normalize = (item) => {
+                const category = item.category || legacyTypeToCategory[item.type] || "その他";
+                const bibtex = item.bibtex || "";
+                const doi = item.doi || "";
+                const pdf = item.pdf || "";
+                const citation = item.citation || "";
+                return { ...item, category, bibtex, doi, pdf, citation };
+            };
 
             function showToast(text) {
                 toast.textContent = text;
@@ -283,12 +311,64 @@
                 return (s || '').toLowerCase();
             }
 
+            function escapeHtml(s) {
+                return (s || '').replace(/[&<>"']/g, (c) => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;'
+                }[c]));
+            }
+
+            function escapeRegExp(s) {
+                return (s || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            }
+
+            function makeLastFirstVariant(name) {
+                const parts = (name || '').trim().split(/\s+/);
+                if (parts.length < 2) return '';
+                const first = parts.slice(0, -1).join(' ');
+                const last = parts[parts.length - 1];
+                return `${last}, ${first}`;
+            }
+
+            function getLabMemberNames() {
+                if (typeof membersData === 'undefined' || !Array.isArray(membersData)) return [];
+                const names = [];
+                membersData.filter((m) => !!m).forEach((m) => {
+                    if (m.name) {
+                        names.push(m.name);
+                        names.push(m.name.replace(/\s+/g, ''));
+                    }
+                    if (m.name_en) {
+                        names.push(m.name_en);
+                        const lastFirst = makeLastFirstVariant(m.name_en);
+                        if (lastFirst) names.push(lastFirst);
+                    }
+                });
+                return [...new Set(names.filter(Boolean))].sort((a, b) => b.length - a.length);
+            }
+
+            const labMemberNames = getLabMemberNames();
+
+            function highlightLabMembers(text) {
+                let html = escapeHtml(text || '');
+                labMemberNames.forEach((name) => {
+                    const escapedName = escapeHtml(name);
+                    const re = new RegExp(escapeRegExp(escapedName), 'g');
+                    html = html.replace(re, `<strong><u>${escapedName}</u></strong>`);
+                });
+                return html;
+            }
+
             function filteredData() {
                 if (typeof publicationsData === 'undefined') return [];
+                const list = publicationsData.map(normalize);
                 const q = normalizeText(state.query);
-                if (!q) return publicationsData;
-                return publicationsData.filter(p => {
-                    const hay = normalizeText([p.citation, p.category, p.year].join(' '));
+                if (!q) return list;
+                return list.filter(p => {
+                    const hay = normalizeText([p.citation, p.category, p.year, p.doi].join(' '));
                     return hay.includes(q);
                 });
             }
@@ -298,7 +378,7 @@
                 wrap.className = 'pub-item';
 
                 const cite = document.createElement('div');
-                cite.textContent = pub.citation;
+                cite.innerHTML = highlightLabMembers(pub.citation);
                 wrap.appendChild(cite);
 
                 const meta = document.createElement('div');
@@ -329,19 +409,28 @@
 
                 meta.appendChild(links);
 
-                const bibBtn = document.createElement('button');
-                bibBtn.className = 'pub-btn';
-                bibBtn.type = 'button';
-                bibBtn.textContent = 'BibTeX';
-                bibBtn.addEventListener('click', () => {
-                    const text = pub.bibtex || 'BibTeX not available for this entry.';
-                    bibContent.textContent = text;
-                    bibBackdrop.style.display = 'flex';
-                });
-                meta.appendChild(bibBtn);
+                if (pub.bibtex) {
+                    const bibBtn = document.createElement('button');
+                    bibBtn.className = 'pub-btn';
+                    bibBtn.type = 'button';
+                    bibBtn.textContent = 'BibTeX';
+                    bibBtn.addEventListener('click', () => {
+                        bibContent.textContent = pub.bibtex;
+                        bibBackdrop.style.display = 'flex';
+                    });
+                    meta.appendChild(bibBtn);
+                }
 
                 wrap.appendChild(meta);
                 return wrap;
+            }
+
+            function sortCategories(cats) {
+                return cats.sort((a, b) => {
+                    const ia = categoryOrder.indexOf(a);
+                    const ib = categoryOrder.indexOf(b);
+                    return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+                });
             }
 
             function renderByYear(items) {
@@ -355,13 +444,11 @@
 
                     const inYear = items.filter(p => p.year === year);
 
-                    // group by category in fixed order
-                    const cats = [...new Set(inYear.map(p => p.category))];
-                    const orderedCats = catOrderJP.filter(c => cats.includes(c)).concat(cats.filter(c => !catOrderJP.includes(c)));
+                    const orderedCats = sortCategories([...new Set(inYear.map(p => p.category))]);
 
                     orderedCats.forEach(cat => {
                         const h4 = document.createElement('h4');
-                        h4.textContent = catLabelEN[cat] || cat;
+                        h4.textContent = categoryLabel[cat] || cat;
                         h4.style.marginTop = '15px';
                         h4.style.color = '#444';
                         section.appendChild(h4);
@@ -374,17 +461,28 @@
             }
 
             function renderByCategory(items) {
-                const cats = [...new Set(items.map(p => p.category))];
-                const orderedCats = catOrderJP.filter(c => cats.includes(c)).concat(cats.filter(c => !catOrderJP.includes(c)));
+                const orderedCats = sortCategories([...new Set(items.map(p => p.category))]);
 
                 orderedCats.forEach(cat => {
                     const section = document.createElement('section');
                     const h3 = document.createElement('h3');
-                    h3.textContent = catLabelEN[cat] || cat;
+                    h3.textContent = categoryLabel[cat] || cat;
                     section.appendChild(h3);
 
-                    const inCat = items.filter(p => p.category === cat).sort((a, b) => (b.year - a.year));
-                    inCat.forEach(pub => section.appendChild(makePubItem(pub)));
+                    const inCat = items.filter(p => p.category === cat);
+                    const years = [...new Set(inCat.map(p => p.year))].sort((a, b) => b - a);
+
+                    years.forEach((year) => {
+                        const h4 = document.createElement('h4');
+                        h4.textContent = year;
+                        h4.style.marginTop = '15px';
+                        h4.style.color = '#444';
+                        section.appendChild(h4);
+
+                        const block = document.createElement('div');
+                        inCat.filter(p => p.year === year).forEach(pub => block.appendChild(makePubItem(pub)));
+                        section.appendChild(block);
+                    });
 
                     container.appendChild(section);
                 });
