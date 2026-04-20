@@ -8,9 +8,9 @@ const membersData = [
         "year": "current",
         "group": "高木グループ",
         "group_en": "Takaki Group",
-        "image": "images/dummy_profile.jpg",
-        "email": "takaki@example.ac.jp",
-        "url": "https://www.example.ac.jp/takaki"        
+        "image": "images/takaki.jpg",
+        "email": "takaki [at] hiroshima-u.ac.jp",
+        "url": "https://seeds.office.hiroshima-u.ac.jp/profile/ja.0e5f464461afe4e0520e17560c007669.html"        
     },
     {
         "id": "ambe",
@@ -21,9 +21,9 @@ const membersData = [
         "year": "current",
         "group": "安部グループ",
         "group_en": "Ambe Group",
-        "image": "images/dummy_profile.jpg",
-        "email": "ambe@example.ac.jp",
-        "url": "https://www.example.ac.jp/ambe"        
+        "image": "images/ambe.jpg",
+        "email": "ambe [at] hiroshima-u.ac.jp",
+        "url": "https://sites.google.com/view/yuichi-ambe/english-top?authuser=0"    
     },
     {
         "id": "mukherjee",

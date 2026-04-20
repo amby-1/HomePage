@@ -2,7 +2,7 @@
   const footerHTML = `
 <footer>
   <div class="container">
-    <p>&copy; 2025 Hiroshima University Mechatronics Laboratory. All Rights Reserved.</p>
+    <p>&copy; 2026 Hiroshima University Mechatronics Laboratory. All Rights Reserved.</p>
   </div>
 </footer>
   `.trim();
