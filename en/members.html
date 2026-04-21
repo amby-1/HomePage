@@ -180,6 +180,7 @@
             if (r.includes('ASSISTANT PROFESSOR') || r.includes('ASSISTANT')) return 2;
             if (r.includes('ASSOCIATE PROFESSOR') || r.includes('ASSOCIATE')) return 1;
             if (r.includes('PROFESSOR')) return 0;
+            if (r.includes('SECRETARY')) return 3;
 
             if (r.startsWith('D')) return 10;
             if (r === 'M2') return 20;
@@ -188,10 +189,22 @@
             return 99;
         }
 
+        function phdYearOf(m) {
+            const re = (m.role_en || '').toUpperCase();
+            const mEn = re.match(/^D(\d+)$/);
+            if (mEn) return parseInt(mEn[1], 10) || 0;
+
+            const rj = m.role || '';
+            const mJa = rj.match(/博士課程\s*(\d+)年/);
+            if (mJa) return parseInt(mJa[1], 10) || 0;
+
+            return 0;
+        }
+
         // rank に基づいてカテゴリキーを返す（このカテゴリ変化時にスペースを入れる）
         function groupKey(m) {
             const r = rankOf(m);
-            if (r <= 2) return 'faculty';     // 教員
+            if (r <= 3) return 'faculty';     // 教員・スタッフ
             if (r === 10) return 'phd';       // 博士
             if (r === 20 || r === 30) return 'master'; // 修士
             if (r === 40) return 'undergrad'; // 学部4年
@@ -211,6 +224,13 @@
             .sort((a, b) => {
             const ra = rankOf(a), rb = rankOf(b);
             if (ra !== rb) return ra - rb;
+
+            // Within PhD rank, show higher year first (D3 -> D2 -> D1)
+            if (ra === 10) {
+                const da = phdYearOf(a), db = phdYearOf(b);
+                if (da !== db) return db - da;
+            }
+
             return (a.name_en || a.name || '').localeCompare((b.name_en || b.name || ''), 'en');
             })
             .forEach(member => {

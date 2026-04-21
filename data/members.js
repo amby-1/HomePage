@@ -26,6 +26,18 @@ const membersData = [
         "url": "https://sites.google.com/view/yuichi-ambe/english-top?authuser=0"    
     },
     {
+        "id": "ooe",
+        "name": "大江 麗子",
+        "name_en": "Reiko Ooe",
+        "role": "秘書",
+        "role_en": "Secretary",
+        "year": "current",
+        "group": "高木グループ",
+        "group_en": "Takaki Group",
+        "image": "",
+        "email": ""
+    },
+    {
         "id": "mukherjee",
         "name": "Mukherjee Sourajit",
         "name_en": "Sourajit Mukherjee",
